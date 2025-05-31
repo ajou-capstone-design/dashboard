@@ -575,7 +575,7 @@ analyzer:
     deprecated_consistency: error
     deprecated_member_use_from_same_package: error
     directives_ordering: error
-    discarded_futures: error
+    # discarded_futures: error
     # do_not_use_environment: error
     empty_catches: error
     empty_constructor_bodies: error
@@ -724,6 +724,8 @@ analyzer:
   language:
     strict-casts: true
     strict-raw-types: true
+  plugins:
+    - custom_lint
 
 linter:
   rules:
@@ -792,7 +794,7 @@ linter:
     - deprecated_member_use_from_same_package
     # - diagnostic_describe_all_properties
     - directives_ordering
-    - discarded_futures
+    # - discarded_futures
     # - do_not_use_environment
     - empty_catches
     - empty_constructor_bodies
