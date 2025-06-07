@@ -52,11 +52,28 @@ final class ChartWidget extends StatelessWidget {
     return LineChart(
       LineChartData(
         titlesData: FlTitlesData(
+          leftTitles: const AxisTitles(
+            sideTitles: SideTitles(
+              reservedSize: 50,
+              showTitles: true,
+            ),
+          ),
           topTitles: AxisTitles(
-            axisNameWidget: Text(title, style: Theme.of(context).textTheme.titleLarge),
-            axisNameSize: (Theme.of(context).textTheme.titleLarge?.fontSize ?? 0) + 10,
+            axisNameWidget: Text(
+              title,
+              style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                    fontWeight: FontWeight.w700,
+                  ),
+            ),
+            axisNameSize: (Theme.of(context).textTheme.labelLarge?.fontSize ?? 0) + 8,
           ),
           rightTitles: const AxisTitles(),
+          bottomTitles: const AxisTitles(
+            sideTitles: SideTitles(
+              reservedSize: 50,
+              showTitles: true,
+            ),
+          ),
         ),
         lineBarsData: [
           ...segments.indexed.map((x) {

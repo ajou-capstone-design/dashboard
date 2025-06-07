@@ -25,8 +25,13 @@ final class UserPage extends ConsumerWidget {
       backgroundColor: Colors.white,
       body: CustomScrollView(
         slivers: [
+          Paddings.height16.sliverBox,
           Center(
-            child: Text((user.value?.name).elvis),
+            child: Text(
+              (user.value?.name).elvis,
+              style: Theme.of(context).textTheme.labelMedium,
+              textAlign: TextAlign.center,
+            ),
           ).sliverBox,
           emg.when(
             data: (value) {
@@ -51,14 +56,16 @@ final class UserPage extends ConsumerWidget {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   ...emgDateList.expand(
-                    (x) => x.value.map(
-                      (y) => SizedBox(
-                        height: 300,
-                        child: ChartWidget(
-                          title: '${y.firstOrNull?.createdAt.add(const Duration(hours: 9))}',
-                          values: y.map((z) => (z.time, z.value)),
+                    (x) => x.value.expand(
+                      (y) => [
+                        SizedBox(
+                          height: 300,
+                          child: ChartWidget(
+                            title: '${y.firstOrNull?.createdAt.add(const Duration(hours: 9))}',
+                            values: y.map((z) => (z.time, z.value)),
+                          ),
                         ),
-                      ),
+                      ],
                     ),
                   ),
                 ],
@@ -67,6 +74,7 @@ final class UserPage extends ConsumerWidget {
             error: (err, st) => Center(child: Text('$err')).sliverBox,
             loading: () => const Center(child: CircularProgressIndicator()).sliverBox,
           ),
+          Paddings.height16.sliverBox,
         ],
       ),
     );
