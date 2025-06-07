@@ -30,26 +30,34 @@ final class UserPage extends ConsumerWidget {
           ).sliverBox,
           emg.when(
             data: (value) {
-              final emgMap = value.fold(SplayTreeMap<String, List<Emg>>(), (a, c) {
+              final emgMap = value.fold(SplayTreeMap<String, List<List<Emg>>>(), (a, c) {
                 if (a.containsKey(c.createdAt.date)) {
-                  a[c.createdAt.date]?.add(c);
+                  if ((a[c.createdAt.date]?.last.lastOrNull?.time ?? 0) > c.time) {
+                    a[c.createdAt.date]?.add([c]);
+                  } else {
+                    a[c.createdAt.date]?.last.add(c);
+                  }
                 } else {
-                  a[c.createdAt.date] = [c];
+                  a[c.createdAt.date] = [
+                    [c],
+                  ];
                 }
 
                 return a;
               });
-              final emgDateList = emgMap.entries.toList().reversed;
+              final emgDateList = emgMap.entries.map((x) => MapEntry(x.key, x.value.reversed)).toList().reversed;
 
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  ...emgDateList.map(
-                    (x) => SizedBox(
-                      height: 300,
-                      child: ChartWidget(
-                        title: x.key,
-                        values: x.value.map((y) => (y.time, y.value)),
+                  ...emgDateList.expand(
+                    (x) => x.value.map(
+                      (y) => SizedBox(
+                        height: 300,
+                        child: ChartWidget(
+                          title: '${y.firstOrNull?.createdAt.add(const Duration(hours: 9))}',
+                          values: y.map((z) => (z.time, z.value)),
+                        ),
                       ),
                     ),
                   ),

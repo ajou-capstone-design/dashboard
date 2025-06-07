@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 
 extension DateTimeEx on DateTime {
   String get date => '$year-${'$month'.padLeft(2, '0')}-${'$day'.padLeft(2, '0')}';
-
-  int get mills => millisecondsSinceEpoch - DateTime(year, month, day).millisecondsSinceEpoch;
 }
 
 extension IntOptionalEx on int? {
