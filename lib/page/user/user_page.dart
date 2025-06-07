@@ -20,6 +20,7 @@ final class UserPage extends ConsumerWidget {
     debugPrint('[UserPage] build');
     final user = ref.watch(getUserInfoProvider(id));
     final emg = ref.watch(getEmgStreamProvider(id));
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: CustomScrollView(
@@ -39,7 +40,6 @@ final class UserPage extends ConsumerWidget {
                 return a;
               });
               final emgDateList = emgMap.entries.toList().reversed;
-              debugPrint('emgDateList: $emgDateList');
 
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,

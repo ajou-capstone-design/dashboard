@@ -13,6 +13,7 @@ final class MainPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     debugPrint('[MainPage] build');
     final users = ref.watch(getAllUserProvider);
+
     return Scaffold(
       body: CustomScrollView(
         slivers: [
